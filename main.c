@@ -8,9 +8,7 @@ typedef struct node{
 
 void conveterBase(int base);
 void converterCodigoBCD();
-void funcao_5();
-void funcao_6();
-void funcao_7();
+void ComplementoA2();
 
 void adicionarAlgarismo(node **head, int num);
 void printLista(node *head);
@@ -47,13 +45,13 @@ int main (void){
                 converterCodigoBCD();
 
             }else if (opcao == 5){
-                funcao_5();
+                ComplementoA2();
                 
             }else if (opcao == 6){
-                funcao_6();
+                break;
 
             }else if (opcao == 7){
-                funcao_7();
+                break;
                 
             }else{
                 break;
@@ -195,38 +193,68 @@ void converterCodigoBCD(void){
 }
 
 
-void funcao_5(void){
+void ComplementoA2(void){
     system("cls");
 
-    int num;
+    int complemento [16];
+    int num, voltar;
     printf("Digite o número que deseja converter: ");
-    scanf("%d\n", &num);
+    scanf("%d", &num);
 
+    if (num < 0){
+        complemento[0] = 1;
+    }else{
+        complemento[0] = 0;
+    }
+
+    for (int i=15; i>0; i--){
+        complemento[i] = num%2;
+        num = num/2;
+
+    }
+
+    printf("\nPimeiro, convertemos o numero para binário,\no primeiro bit representa o sinal.\n\n");
+
+    for (int i = 0; i < 16; i++){
+        printf("%d", complemento[i]);
+    }
+
+    printf("\n\nDepois, invertemos os algarismos da direita para a esquerda a partir do primeiro 1\n\n");
+
+    int aux;
+
+    for (int i = 16; i > 0; i--){
+
+        if (complemento[i] == 1){
+            aux = i-1;
+            break;
+        }
+        
+    }
+    
+    for (int i = aux; i >= 0; i--){
+
+        if (complemento[i] == 0){
+            complemento[i] = 1;
+
+        }else if (complemento[i] == 1){
+            complemento[i] = 0;
+
+        }
+    }
+
+    printf("Resultado: ");
+
+    for (int i = 0; i < 16; i++){
+        printf("%d", complemento[i]);
+    }
+    
     
 
-}
+    printf("\n\n[1]Voltar ");
+    scanf("%d", &voltar);
 
-
-void funcao_6(void){
-    system("cls");
-
-    int num;
-    printf("Digite o número que deseja converter: ");
-    scanf("%d\n", &num);
-
-    
-
-}
-
-
-void funcao_7(void){
-    system("cls");
-
-    int num;
-    printf("Digite o número que deseja converter: ");
-    scanf("%d\n", &num);
-
-    
+    if (voltar == 1) return;
 
 }
 
