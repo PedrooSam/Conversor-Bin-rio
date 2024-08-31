@@ -1,3 +1,17 @@
+/*
+1ª Questão:
+Início 23/08 as 14h
+Finalização 29/08 as 19h
+
+2ª Questão:
+Início 30/08 9h
+Finalização 30/08 12h
+
+3ª Questão:
+Início 30/08 13h
+Finalização 30/08 23h
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 
@@ -393,7 +407,7 @@ void converterDouble(void){
 
     printf("\nDepois coloca-se o número em notação científica e pegamos o expoente");
     printf("\nNúmero: %lf", num);
-    printf("\nExpoente: %lf\n", e);
+    printf("\nExpoente: %d\n", e);
     
     expoente = e + 1023;
     num -= 1.0;
