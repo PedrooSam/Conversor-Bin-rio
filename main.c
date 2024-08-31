@@ -6,9 +6,16 @@ typedef struct node{
     struct node *next;
 }node;
 
+typedef struct node2{
+    float valor;
+    struct node *next;
+}node2;
+
 void conveterBase(int base);
 void converterCodigoBCD();
 void ComplementoA2();
+void converterFloat();
+void converterDouble();
 
 void adicionarAlgarismo(node **head, int num);
 void printLista(node *head);
@@ -48,10 +55,10 @@ int main (void){
                 ComplementoA2();
                 
             }else if (opcao == 6){
-                break;
+                converterFloat();
 
             }else if (opcao == 7){
-                break;
+                converterDouble();
                 
             }else{
                 break;
@@ -251,6 +258,188 @@ void ComplementoA2(void){
     
     
 
+    printf("\n\n[1]Voltar ");
+    scanf("%d", &voltar);
+
+    if (voltar == 1) return;
+
+}
+
+
+void converterFloat(void){
+
+    system("cls");
+
+    int sinal = 0;
+    int expoente = 0;
+    unsigned int mantissa = 0;
+    int voltar;
+    float num;
+    printf("Digite o número que deseja converter: ");
+    scanf("%f", &num);
+
+    printf("\nO primeiro bit no número deve ser o de sinal\n");
+    
+    if (num < 0) {
+        sinal = 1;
+        num = -num;
+        printf("Sinal: %d | Número positívo\n", sinal);
+    
+    }else{
+        printf("Sinal: %d | Número negativo\n", sinal);
+    }    
+    
+    int e = 0;
+    while (num >= 2.0) {
+        num /= 2.0;
+        e++;
+    }
+    while (num < 1.0) {
+        num *= 2.0;
+        e--;
+    }
+
+    printf("\nDepois coloca-se o número em notação científica e pegamos o expoente");
+    printf("\nNúmero: %f", num);
+    printf("\nexpoente: %f\n", num);
+    
+    expoente = e + 127;
+    num -= 1.0;
+
+    printf("\nSe segue multiplicando o número por dois, a parte inteira será um bit da mantissa,");
+    printf("despois subtrai um do número e repete o processo.\n");
+
+    for (int i = 0; i < 23; i++) {
+        num *= 2;
+        if (num >= 1.0) {
+            mantissa |= (1 << (22 - i));
+            printf("\nNúmero: %f | Bit: %d", num, (int)num%10);
+            num -= 1.0;
+            continue;
+        }
+
+        printf("\nNúmero: %f | Bit: %d", num, (int)num%10);
+        
+    }
+    
+    printf("\n\nSinal: %d\n", sinal);
+    
+    printf("Expoente: ");
+    for (int i = 7; i >= 0; i--) {
+        printf("%d", (expoente >> i) & 1);
+    }
+    printf("\n");
+    
+    printf("Mantissa: ");
+    for (int i = 22; i >= 0; i--) {
+        printf("%d", (mantissa >> i) & 1);
+    }
+
+    printf("\n\nResultado: ");
+
+    printf("%d", sinal);
+    
+    for (int i = 7; i >= 0; i--) {
+        printf("%d", (expoente >> i) & 1);
+    }
+
+    for (int i = 22; i >= 0; i--) {
+        printf("%d", (mantissa >> i) & 1);
+    }
+
+    
+    printf("\n\n[1]Voltar ");
+    scanf("%d", &voltar);
+
+    if (voltar == 1) return;
+        
+
+}
+
+
+
+void converterDouble(void){
+
+    system("cls");
+
+    int sinal = 0;
+    int expoente = 0;
+    unsigned long long int mantissa = 0;
+    int voltar;
+    double num;
+    printf("Digite o número que deseja converter: ");
+    scanf("%lf", &num);
+
+    printf("\nO primeiro bit do número deve ser o de sinal\n");
+    
+    if (num < 0) {
+        sinal = 1;
+        num = -num;
+        printf("Sinal: %d | Número negativo\n", sinal);
+    
+    }else{
+        printf("Sinal: %d | Número positivo\n", sinal);
+    }
+    
+    int e = 0;
+    while (num >= 2.0) {
+        num /= 2.0;
+        e++;
+    }
+    while (num < 1.0) {
+        num *= 2.0;
+        e--;
+    }
+
+    printf("\nDepois coloca-se o número em notação científica e pegamos o expoente");
+    printf("\nNúmero: %lf", num);
+    printf("\nExpoente: %lf\n", e);
+    
+    expoente = e + 1023;
+    num -= 1.0;
+
+    printf("\nSe segue multiplicando o número por dois, a parte inteira será um bit da mantissa,");
+    printf("despois subtrai um do número e repete o processo.\n");
+
+    for (int i = 0; i < 52; i++) {
+        num *= 2;
+        if (num >= 1.0) {
+            mantissa |= (1ULL << (51 - i));
+            printf("\nNúmero: %lf | Bit: %d", num, (int)num%10);
+            num -= 1.0;
+            continue;
+        }
+
+        printf("\nNúmero: %lf | Bit: %d", num, (int)num%10);
+        
+    }
+    
+    printf("\n\nSinal: %d\n", sinal);
+    
+    printf("Expoente: ");
+    for (int i = 10; i >= 0; i--) {
+        printf("%d", (expoente >> i) & 1);
+    }
+    printf("\n");
+    
+    printf("Mantissa: ");
+    for (int i = 51; i >= 0; i--) {
+        printf("%d", (mantissa >> i) & 1);
+    }
+
+    printf("\n\nResultado: ");
+
+    printf("%d", sinal);
+    
+    for (int i = 10; i >= 0; i--) {
+        printf("%d", (expoente >> i) & 1);
+    }
+
+    for (int i = 51; i >= 0; i--) {
+        printf("%d", (mantissa >> i) & 1);
+    }
+
+    
     printf("\n\n[1]Voltar ");
     scanf("%d", &voltar);
 
